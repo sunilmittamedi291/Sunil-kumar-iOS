@@ -13,6 +13,9 @@ class ViewController: UIViewController {
     @IBOutlet weak var searchTextField: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
+        let mercedes = Vehicle(type: .Car)
+                mercedes.startEngine(minutes: 60)
+        print(mercedes.returnKilometers())
         
         // Do any additional setup after loading the view.
     }
