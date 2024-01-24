@@ -8,13 +8,15 @@
 import Foundation
 
 class NetworkManager {
-
-    func searchResult(for query: String, completion: @escaping (Result<Data, Error>) -> Void) {
+    private let maxRetries = 3
+    func searchResult(for query: String,currentPage: Int, completion: @escaping (Result<Data, Error>) -> Void) {
         guard let encodedQuery = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
             completion(.failure(NSError(domain: "NetworkManager", code: 0, userInfo: [NSLocalizedDescriptionKey: "Encoding failure"])))
             return
         }
-        let urlString = "https://api.github.com/search/users?q=\(encodedQuery)"
+        let urlString = "https://api.github.com/search/users?q=\(encodedQuery)&login&page=\(currentPage)&per_page=10"
+        print(urlString)
+        
         guard let url = URL(string: urlString) else {
             completion(.failure(NSError(domain: "NetworkManager", code: 1, userInfo: [NSLocalizedDescriptionKey: "URL creation failure"])))
             return

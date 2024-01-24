@@ -55,6 +55,19 @@ extension SearchResultsViewController: UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
     }
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+            let lastRow = indexPath.row
+        if lastRow == viewModel.searchResult.count - 1 {
+                // Fetch next page when reaching the last row
+            viewModel.currentPage += 1
+            if let searchText = searchString {
+              
+                    self.viewModel.searchListData(for: searchText)
+                
+            }
+               
+            }
+        }
     
     
 }
